@@ -5,7 +5,7 @@ import { MemberEntity } from 'src/member/member.entity';
 import { ClubMemberService } from './club-member.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MemberEntity, ClubEntity])],
   providers: [ClubMemberService],
+  imports: [TypeOrmModule.forFeature([ClubEntity, MemberEntity])],
 })
 export class ClubMemberModule {}

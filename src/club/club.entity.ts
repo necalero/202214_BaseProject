@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MemberEntity } from '../member/member.entity';
 import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 

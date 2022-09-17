@@ -10,9 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClubMemberModule } from './club-member/club-member.module';
 
 @Module({
-  imports: [
-    MemberModule,
-    ClubModule,
+  imports: [ MemberModule, ClubModule, ClubMemberModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -25,7 +23,7 @@ import { ClubMemberModule } from './club-member/club-member.module';
       synchronize: true,
       keepConnectionAlive: true,
     }),
-    ClubMemberModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

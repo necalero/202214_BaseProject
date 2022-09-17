@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ClubEntity } from 'src/club/club.entity';
-import { MemberEntity } from 'src/member/member.entity';
+import { ClubEntity } from '../club/club.entity';
+import { MemberEntity } from '../member/member.entity';
 import { Repository } from 'typeorm';
 import {
   BusinessError,
@@ -11,11 +11,10 @@ import {
 @Injectable()
 export class ClubMemberService {
   constructor(
-    @InjectRepository(MemberEntity)
-    private readonly memberRepository: Repository<MemberEntity>,
-
     @InjectRepository(ClubEntity)
     private readonly clubRepository: Repository<ClubEntity>,
+    @InjectRepository(MemberEntity)
+    private readonly memberRepository: Repository<MemberEntity>,
   ) {}
 
   async addMemberToClub(clubId: string, memberId: string): Promise<ClubEntity> {
