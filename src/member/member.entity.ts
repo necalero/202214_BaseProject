@@ -2,19 +2,19 @@ import { ClubEntity } from 'src/club/club.entity';
 import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
-export class SocioEntity {
+export class MemberEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  usuario: string;
+  username: string;
 
   @Column()
-  correo: string;
+  email: string;
 
   @Column()
-  fechaNacimiento: string;
+  birthdate: string;
 
-  @ManyToMany(() => ClubEntity, (club) => club.socios)
+  @ManyToMany(() => ClubEntity, (club) => club.members)
   clubs: ClubEntity[];
 }
