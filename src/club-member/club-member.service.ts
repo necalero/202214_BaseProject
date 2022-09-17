@@ -43,116 +43,116 @@ export class ClubMemberService {
   }
 
   async findMemberFromClub(
-    museumId: string,
-    artworkId: string,
-  ): Promise<ArtworkEntity> {
-    const artwork: ArtworkEntity = await this.artworkRepository.findOne({
-      where: { id: artworkId },
+    clubId: string,
+    memberId: string,
+  ): Promise<MemberEntity> {
+    const member: MemberEntity = await this.memberRepository.findOne({
+      where: { id: memberId },
     });
-    if (!artwork)
+    if (!member)
       throw new BusinessLogicException(
-        'The artwork with the given id was not found',
+        'The member with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    const museum: MuseumEntity = await this.museumRepository.findOne({
-      where: { id: museumId },
-      relations: ['artworks'],
+    const club: ClubEntity = await this.clubRepository.findOne({
+      where: { id: clubId },
+      relations: ['members'],
     });
-    if (!museum)
+    if (!club)
       throw new BusinessLogicException(
-        'The museum with the given id was not found',
+        'The club with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    const museumArtwork: ArtworkEntity = museum.artworks.find(
-      (e) => e.id === artwork.id,
+    const clubMember: MemberEntity = club.members.find(
+      (e) => e.id === member.id,
     );
 
-    if (!museumArtwork)
+    if (!clubMember)
       throw new BusinessLogicException(
-        'The artwork with the given id is not associated to the museum',
+        'The member with the given id is not associated to the club',
         BusinessError.PRECONDITION_FAILED,
       );
 
-    return museumArtwork;
+    return clubMember;
   }
 
-  async findMembersFromClub(museumId: string): Promise<ArtworkEntity[]> {
-    const museum: MuseumEntity = await this.museumRepository.findOne({
-      where: { id: museumId },
-      relations: ['artworks'],
+  async findMembersFromClub(clubId: string): Promise<MemberEntity[]> {
+    const club: ClubEntity = await this.clubRepository.findOne({
+      where: { id: clubId },
+      relations: ['members'],
     });
-    if (!museum)
+    if (!club)
       throw new BusinessLogicException(
-        'The museum with the given id was not found',
+        'The club with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    return museum.artworks;
+    return club.members;
   }
 
   async updateMembersFromClub(
-    museumId: string,
-    artworks: ArtworkEntity[],
-  ): Promise<MuseumEntity> {
-    const museum: MuseumEntity = await this.museumRepository.findOne({
-      where: { id: museumId },
-      relations: ['artworks'],
+    clubId: string,
+    members: MemberEntity[],
+  ): Promise<ClubEntity> {
+    const club: ClubEntity = await this.clubRepository.findOne({
+      where: { id: clubId },
+      relations: ['members'],
     });
 
-    if (!museum)
+    if (!club)
       throw new BusinessLogicException(
-        'The museum with the given id was not found',
+        'The club with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    for (let i = 0; i < artworks.length; i++) {
-      const artwork: ArtworkEntity = await this.artworkRepository.findOne({
-        where: { id: artworks[i].id },
+    for (let i = 0; i < members.length; i++) {
+      const member: MemberEntity = await this.memberRepository.findOne({
+        where: { id: members[i].id },
       });
-      if (!artwork)
+      if (!member)
         throw new BusinessLogicException(
-          'The artwork with the given id was not found',
+          'The member with the given id was not found',
           BusinessError.NOT_FOUND,
         );
     }
 
-    museum.artworks = artworks;
-    return await this.museumRepository.save(museum);
+    club.members = members;
+    return await this.clubRepository.save(club);
   }
 
-  async deleteMemberFromClub(museumId: string, artworkId: string) {
-    const artwork: ArtworkEntity = await this.artworkRepository.findOne({
-      where: { id: artworkId },
+  async deleteMemberFromClub(clubId: string, memberId: string) {
+    const member: MemberEntity = await this.memberRepository.findOne({
+      where: { id: memberId },
     });
-    if (!artwork)
+    if (!member)
       throw new BusinessLogicException(
-        'The artwork with the given id was not found',
+        'The member with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    const museum: MuseumEntity = await this.museumRepository.findOne({
-      where: { id: museumId },
-      relations: ['artworks'],
+    const club: ClubEntity = await this.clubRepository.findOne({
+      where: { id: clubId },
+      relations: ['members'],
     });
-    if (!museum)
+    if (!club)
       throw new BusinessLogicException(
-        'The museum with the given id was not found',
+        'The club with the given id was not found',
         BusinessError.NOT_FOUND,
       );
 
-    const museumArtwork: ArtworkEntity = museum.artworks.find(
-      (e) => e.id === artwork.id,
+    const clubMember: MemberEntity = club.members.find(
+      (e) => e.id === member.id,
     );
 
-    if (!museumArtwork)
+    if (!clubMember)
       throw new BusinessLogicException(
-        'The artwork with the given id is not associated to the museum',
+        'The member with the given id is not associated to the club',
         BusinessError.PRECONDITION_FAILED,
       );
 
-    museum.artworks = museum.artworks.filter((e) => e.id !== artworkId);
-    await this.museumRepository.save(museum);
+    club.members = club.members.filter((e) => e.id !== memberId);
+    await this.clubRepository.save(club);
   }
 }
