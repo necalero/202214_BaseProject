@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "3acf77bc-27f6-46a0-97a6-994903fdf7e8",
+		"name": "Clubs",
+		"description": "Buy or rent spacecrafts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17305656"
+	},
+	"item": [
+		{
+			"name": "Crear un club valido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"club_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Club de Scouts\",\r\n    \"foundationDate\": \"December 3 1978\",\r\n    \"image\": \"https://png.pngtree.com/element_our/png_detail/20181028/blue-and-red-football-club-logo-element-png_217935.jpg\",\r\n    \"description\": \"Club de scouts de la localidad de Teusaquillo, Bogota.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un club invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Club de Scouts\",\r\n    \"foundationDate\": \"December 3 1978\",\r\n    \"image\": \"https://png.pngtree.com/element_our/png_detail/20181028/blue-and-red-football-club-logo-element-png_217935.jpg\",\r\n    \"description\": \"Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota. Club de scouts de la localidad de Teusaquillo, Bogota.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los clubs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of clubs > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un club por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubs/{{club_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un club por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Club de Scouts Nuevo\",\r\n    \"foundationDate\": \"December 3 2021\",\r\n    \"image\": \"https://png.pngtree.com/element_our/png_detail/20181028/blue-and-red-football-club-logo-element-png_217935.jpg\",\r\n    \"description\": \"Club de scouts de la localidad de Teusaquillo, Bogota.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubs/{{club_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un club con un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Club de Scouts Nuevo\",\r\n    \"foundationDate\": \"December 3 2021\",\r\n    \"image\": \"https://png.pngtree.com/element_our/png_detail/20181028/blue-and-red-football-club-logo-element-png_217935.jpg\",\r\n    \"description\": \"Club de scouts de la localidad de Teusaquillo, Bogota.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un club por su ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubs/{{club_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un club con un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

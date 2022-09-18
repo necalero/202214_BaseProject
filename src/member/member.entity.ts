@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ClubEntity } from '../club/club.entity';
 import {
   Column,
